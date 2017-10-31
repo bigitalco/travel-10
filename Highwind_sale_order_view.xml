@@ -7,45 +7,44 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <!--<field name="package_description"/>-->
-                    <field name="x_sales_channel"/>
-                    <field name="general_origin"/>
-                    <field name="general_destination"/>
-                    <field name="plan_description"/>
+                    <field name="x_sales_channel" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                    <field name="general_origin" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                    <field name="general_destination" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                    <field name="plan_description" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
 
                 </field>
                 <field name="payment_term_id" position="replace">
-                    <field name="trm"/>
+                    <field name="trm" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                 </field>
-                <!--<header>-->
-                <!--<button name="get_grand_total" type="object" string="Totalizar" class="oe_highlight"/>-->
-                <!--</header>-->
-
+                <field name="order_line" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ('sale','done','cancel'))]}</attribute>
+                </field>
                 <xpath expr="//page[2]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="/form/sheet/group[1]" position="before">
                     <group col="3">
                         <group>
-                            <field name="include_flight"/>
-                            <field name="include_lodging"/>
-                            <field name="include_transfer"/>
+                            <field name="include_flight" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_lodging" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_transfer" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                         </group>
                         <group>
-                            <field name="include_tour"/>
-                            <field name="include_cruise"/>
-                            <field name="include_travel_insurance"/>
+                            <field name="include_tour" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_cruise" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_travel_insurance" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                         </group>
                         <group>
-                            <field name="include_car_rental"/>
-                            <field name="include_ticket"/>
-                            <field name="include_plan"/>
+                            <field name="include_car_rental" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_ticket" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                            <field name="include_plan" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                         </group>
 
                     </group>
                 </xpath>
                 <xpath expr="//page[1]" position="after">
                     <page name="Vuelos" string="Vuelo" attrs="{'invisible': [('include_flight', '=',False)]}">
-                        <field name="flights" widget="one2many_list">
+                        <field name="flights" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="sumary"/>
                                 <field name="retail_price" sum="Total"/>
@@ -54,7 +53,7 @@
                         </field>
                     </page>
                     <page string="Hospedaje" attrs="{'invisible': [('include_lodging', '=',False)]}">
-                        <field name="lodgings" widget="one2many_list">
+                        <field name="lodgings" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="lodging_place"/>
                                 <field name="retail_price" sum="Total"/>
@@ -63,7 +62,7 @@
                         </field>
                     </page>
                     <page string="Traslado" attrs="{'invisible': [('include_transfer', '=',False)]}">
-                        <field name="transfers" widget="one2many_list">
+                        <field name="transfers" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="sumary"/>
                                 <field name="retail_price" sum="Total"/>
@@ -72,7 +71,7 @@
                         </field>
                     </page>
                     <page string="Tour" attrs="{'invisible': [('include_tour', '=',False)]}">
-                        <field name="tours" widget="one2many_list">
+                        <field name="tours" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
                                 <field name="retail_price" sum="Total"/>
@@ -81,16 +80,16 @@
                         </field>
                     </page>
                     <page string="Crucero" attrs="{'invisible': [('include_cruise', '=',False)]}">
-                        <field name="cruises" widget="one2many_list">
+                        <field name="cruises" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
-                                <field name="retail_price" sum=" Total" widget="monetary"/>
-                                <field name="total_to_pay" sum="Total"/>
+                                <field name="retail_price" sum=" Total" widget="monetary" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
+                                <field name="total_to_pay" sum="Total" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </tree>
                         </field>
                     </page>
                     <page string="Tarjeta médica" attrs="{'invisible': [('include_travel_insurance', '=',False)]}">
-                        <field name="travel_insurances" widget="one2many_list">
+                        <field name="travel_insurances" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
                                 <field name="retail_price" sum="Total"/>
@@ -99,7 +98,7 @@
                         </field>
                     </page>
                     <page string="Renta de autos" attrs="{'invisible': [('include_car_rental', '=',False)]}">
-                        <field name="car_rentals" widget="one2many_list">
+                        <field name="car_rentals" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
                                 <field name="retail_price" sum="Total"/>
@@ -108,7 +107,7 @@
                         </field>
                     </page>
                     <page string="Boleta" attrs="{'invisible': [('include_ticket', '=',False)]}">
-                        <field name="tickets" widget="one2many_list">
+                        <field name="tickets" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
                                 <field name="retail_price" sum="Total"/>
@@ -117,7 +116,7 @@
                         </field>
                     </page>
                     <page string="Plan" attrs="{'invisible': [('include_plan', '=',False)]}">
-                        <field name="plans" widget="one2many_list">
+                        <field name="plans" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree>
                                 <field name="notes"/>
                                 <field name="retail_price" sum="Total"/>
@@ -127,7 +126,7 @@
                     </page>
                     <page string="Información">
                         <div class="o_horizontal_separator">Pasajeros</div>
-                        <field name="passengers" widget="one2many_list">
+                        <field name="passengers" widget="one2many_list" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                             <tree editable="bottom">
                                 <field name="id_number"/>
                                 <field name="id_type"/>
@@ -141,42 +140,42 @@
                         <!--ADICIONES-->
                         <group string="Adiciones">
                             <group>
-                                <field name="include" widget="many2many_tags">
+                                <field name="include" widget="many2many_tags" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                                     <field name="detail"/>
                                 </field>
                             </group>
                             <group>
-                                <field name="exclude" widget="many2many_tags">
+                                <field name="exclude" widget="many2many_tags" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}">
                                     <field name="detail"/>
                                 </field>
                             </group>
                         </group>
                         <group col="4" string="Costos por tipo de pasajero">
                             <group>
-                                <field name="sum_cost_per_adult_in_1"/>
+                                <field name="sum_cost_per_adult_in_1" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="sum_cost_per_adult_in_2"/>
+                                <field name="sum_cost_per_adult_in_2" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="sum_cost_per_adult_in_3"/>
+                                <field name="sum_cost_per_adult_in_3" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="sum_cost_per_adult_in_m"/>
+                                <field name="sum_cost_per_adult_in_m" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                         </group>
                         <group col="4">
                             <group>
-                                <field name="sum_cost_per_adult"/>
+                                <field name="sum_cost_per_adult" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="sum_cost_per_child"/>
+                                <field name="sum_cost_per_child" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="sum_cost_per_infant"/>
+                                <field name="sum_cost_per_infant" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="manual_cost_tour_conductor"/>
+                                <field name="manual_cost_tour_conductor" attrs="{'readonly': [('state', 'in', ('sale','done','cancel'))]}"/>
                             </group>
                         </group>
                     </page>
