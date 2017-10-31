@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <!--<field name="package_description"/>-->
-                    <field name="x_sales_channel" attrs="{'readonly': [('state', 'in', (‘sale’,‘done’,’cancel'))]}"/>
+                    <field name="x_sales_channel"/>
                     <field name="general_origin"/>
                     <field name="general_destination"/>
                     <field name="plan_description"/>
